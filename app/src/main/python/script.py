@@ -5,15 +5,15 @@ import base64
 import io
 from PIL import Image
 
-def main(data):
+def main(data,answer1,answer2,answer3,answer4):
     questions = 10
     choices = 4
     widthImg = 700
     heightImg = 700
-    answer_1 = [1, 1, 1, 1, 0, 0, 3, 3, 1, 3]
-    answer_2 = [2, 1, 2, 1, 2, 1, 2, 1, 0, 0]
-    answer_3 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 2]
-    answer_4 = [0, 0, 1, 0, 1, 2, 3, 2, 1, 2]
+    answer_1 = answer1
+    answer_2 = answer2
+    answer_3 = answer3
+    answer_4 = answer4
 
 
     decoded_data = base64.b64decode(data)
@@ -256,15 +256,15 @@ def main(data):
 ###########################################################
 ###########################################################
 
-def main1(data):
+def main1(data,answer1,answer2,answer3,answer4):
     questions = 10
     choices = 4
     widthImg = 700
     heightImg = 700
-    answer_1 = [1, 1, 1, 1, 0, 0, 3, 3, 1, 3]
-    answer_2 = [2, 1, 2, 1, 2, 1, 2, 1, 0, 0]
-    answer_3 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 2]
-    answer_4 = [0, 0, 1, 0, 1, 2, 3, 2, 1, 2]
+    answer_1 = answer1
+    answer_2 = answer2
+    answer_3 = answer3
+    answer_4 = answer4
 
 
     decoded_data = base64.b64decode(data)

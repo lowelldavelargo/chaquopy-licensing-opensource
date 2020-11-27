@@ -10,7 +10,10 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.content.Intent;
+import android.widget.Toast;
 
 import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
@@ -19,6 +22,8 @@ import com.chaquo.python.android.AndroidPlatform;
 import java.io.ByteArrayOutputStream;
 
 public class MainActivity extends AppCompatActivity {
+    public Button button;
+
 
     Button btn;
     TextView tv;
@@ -35,26 +40,44 @@ public class MainActivity extends AppCompatActivity {
         btn = (Button)findViewById(R.id.btn);
         tv = (TextView)findViewById(R.id.text_view);
         iv = (ImageView)findViewById(R.id.image_view);
+        button = (Button)findViewById(R.id.answerkey);
         iv1 = (ImageView)findViewById(R.id.image_view1);
+
+
+
         if(!Python.isStarted())
             Python.start(new AndroidPlatform(this));
 
         final Python py = Python.getInstance();
         PyObject pyobj = py.getModule("script");
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this,AnswerKey.class);
+                startActivity(i);
+            }
+        });
+
+        Intent intent = getIntent();
+        int[] intanswer = intent.getIntArrayExtra("int");
+        int[] intanswer_1 = intent.getIntArrayExtra("int_1");
+        int[] intanswer_2 = intent.getIntArrayExtra("int_2");
+        int[] intanswer_3 = intent.getIntArrayExtra("int_3");
+        String score = getIntent().getStringExtra("score");
+        tv.setText(score);
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawable = (BitmapDrawable)iv.getDrawable();
-                bitmap = drawable.getBitmap();
-                imageString = getImageString(bitmap);
-                PyObject obj = pyobj.callAttr("main",imageString);
-                String str = obj.toString();
-                byte data[] = android.util.Base64.decode(str,Base64.DEFAULT);
-                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,data.length);
-                iv1.setImageBitmap(bmp);
-                PyObject obj1 = pyobj.callAttr("main1",imageString);
-                tv.setText(obj1.toString());
+
+                Intent intent = new Intent(MainActivity.this,Camera.class);
+                intent.putExtra("int", intanswer);
+                intent.putExtra("int_1", intanswer_1);
+                intent.putExtra("int_2", intanswer_2);
+                intent.putExtra("int_3", intanswer_3);
+                startActivity(intent);
+
 
 
             }
@@ -62,11 +85,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    private String getImageString(Bitmap bitmap){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100,baos);
-        byte[]imageBytes = baos.toByteArray();
-        String encodedImage = android.util.Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
-    }
+
 }
