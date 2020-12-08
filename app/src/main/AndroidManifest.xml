@@ -9,9 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".Camera"></activity>
+        <activity
+            android:name=".AddActivity"
+            android:label="Add Student"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Camera"
+            android:label="Camera"
+            android:parentActivityName=".AddActivity" />
         <activity android:name=".AnswerKey" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:label="MCQ Checker">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

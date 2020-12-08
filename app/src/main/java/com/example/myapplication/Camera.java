@@ -23,6 +23,9 @@ public class Camera extends AppCompatActivity {
 
     public String score;
 
+
+
+
     Button btn,btn_save;
     TextView tv;
     ImageView iv,iv1;
@@ -38,11 +41,11 @@ public class Camera extends AppCompatActivity {
 
 
 
-        btn = (Button)findViewById(R.id.btn);
+        btn = (Button)findViewById(R.id.analyze_button);
         tv = (TextView)findViewById(R.id.text_view);
         iv = (ImageView)findViewById(R.id.image_view);
         iv1 = (ImageView)findViewById(R.id.image_view1);
-        btn_save = (Button) findViewById(R.id.btn_save);
+        btn_save = (Button) findViewById(R.id.save_button);
 
         if(!Python.isStarted())
             Python.start(new AndroidPlatform(this));
@@ -50,11 +53,16 @@ public class Camera extends AppCompatActivity {
         final Python py = Python.getInstance();
         PyObject pyobj = py.getModule("script");
 
-        Intent intent = getIntent();
-        int[] intanswer = intent.getIntArrayExtra("int");
-        int[] intanswer_1 = intent.getIntArrayExtra("int_1");
-        int[] intanswer_2 = intent.getIntArrayExtra("int_2");
-        int[] intanswer_3 = intent.getIntArrayExtra("int_3");
+
+        int[] intanswer = getIntent().getIntArrayExtra("int");
+        int[] intanswer_1 = getIntent().getIntArrayExtra("int_1");
+        int[] intanswer_2 = getIntent().getIntArrayExtra("int_2");
+        int[] intanswer_3 = getIntent().getIntArrayExtra("int_3");
+
+        String fullname = getIntent().getStringExtra("fullname");
+        String mobilenumber = getIntent().getStringExtra("mobilenumber");
+        String idnumber = getIntent().getStringExtra("idnumber");
+
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,15 +80,18 @@ public class Camera extends AppCompatActivity {
                 iv1.setImageBitmap(bmp);
                 PyObject obj1 = pyobj.callAttr("main1",imageString,intanswer,intanswer_1,intanswer_2,intanswer_3);
                 score = obj1.toString();
-                tv.setText(obj1.toString());
+                tv.setText(score);
+
             }
         });
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Camera.this,MainActivity.class);
-                intent.putExtra("score", score);
+                MyDatabaseHelper myDB = new MyDatabaseHelper(Camera.this);
+                myDB.addstudent(fullname, mobilenumber, score, idnumber);
+                Intent intent = new Intent(Camera.this, AddActivity.class);
+                intent.putExtra("flag", 1);
                 startActivity(intent);
             }
         });

@@ -1,7 +1,10 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -18,72 +21,76 @@ import android.widget.Toast;
 import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
 import com.chaquo.python.android.AndroidPlatform;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    public Button button;
+
+    public int[] intanswer = new int[] {2,2,1,1,0,0,3,3,1,3};
+    public int[] intanswer_1 = new int[] {2,1,2,1,2,1,2,1,2,1};
+    public int[] intanswer_2 = new int[] {0,0,0,0,0,1,1,1,1,1};
+    public int[] intanswer_3 = new int[] {3,2,1,0,1,2,3,2,1,2};
+
+    FloatingActionButton add_button;
+    RecyclerView recyclerView;
+
+    MyDatabaseHelper myDB;
+    ArrayList<String> student_id, student_fullname, student_idnumber, student_mobilenumber, student_score;
+    CustomAdapter customAdapter;
 
 
-    Button btn;
-    TextView tv;
-    ImageView iv,iv1;
 
-    BitmapDrawable drawable;
-    Bitmap bitmap;
-    String imageString = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn = (Button)findViewById(R.id.btn);
-        tv = (TextView)findViewById(R.id.text_view);
-        iv = (ImageView)findViewById(R.id.image_view);
-        button = (Button)findViewById(R.id.answerkey);
-        iv1 = (ImageView)findViewById(R.id.image_view1);
+        recyclerView = findViewById(R.id.records_view);
+        add_button = findViewById(R.id.add_button);
 
-
-
-        if(!Python.isStarted())
-            Python.start(new AndroidPlatform(this));
-
-        final Python py = Python.getInstance();
-        PyObject pyobj = py.getModule("script");
-
-        button.setOnClickListener(new View.OnClickListener() {
+        add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this,AnswerKey.class);
-                startActivity(i);
-            }
-        });
-
-        Intent intent = getIntent();
-        int[] intanswer = intent.getIntArrayExtra("int");
-        int[] intanswer_1 = intent.getIntArrayExtra("int_1");
-        int[] intanswer_2 = intent.getIntArrayExtra("int_2");
-        int[] intanswer_3 = intent.getIntArrayExtra("int_3");
-        String score = getIntent().getStringExtra("score");
-        tv.setText(score);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(MainActivity.this,Camera.class);
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 intent.putExtra("int", intanswer);
                 intent.putExtra("int_1", intanswer_1);
                 intent.putExtra("int_2", intanswer_2);
                 intent.putExtra("int_3", intanswer_3);
                 startActivity(intent);
-
-
-
             }
         });
 
+        myDB = new MyDatabaseHelper(MainActivity.this);
+        student_id = new ArrayList<>();
+        student_fullname = new ArrayList<>();
+        student_idnumber = new ArrayList<>();
+        student_mobilenumber = new ArrayList<>();
+        student_score = new ArrayList<>();
+        storeDataInArrays();
 
+        customAdapter = new CustomAdapter(MainActivity.this, student_id,student_fullname,student_idnumber,student_mobilenumber,student_score);
+        recyclerView.setAdapter(customAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
     }
+
+    void storeDataInArrays(){
+        Cursor cursor = myDB.readAllData();
+        if(cursor.getCount() == 0){
+            Toast.makeText(this,"No Data.", Toast.LENGTH_SHORT).show();
+        }else{
+            while (cursor.moveToNext()){
+                student_id.add(cursor.getString(0));
+                student_fullname.add(cursor.getString(1));
+                student_idnumber.add(cursor.getString(2));
+                student_mobilenumber.add(cursor.getString(3));
+                student_score.add(cursor.getString(4));
+            }
+
+        }
+    }
+
 
 }

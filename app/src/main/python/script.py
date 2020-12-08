@@ -486,7 +486,7 @@ def main1(data,answer1,answer2,answer3,answer4):
     #############################
 
     finalscore = score_1 + score_2 + score_3 + score_4
-    return "Score is: " +str(finalscore)
+    return "" +str(finalscore)
 
 
 
