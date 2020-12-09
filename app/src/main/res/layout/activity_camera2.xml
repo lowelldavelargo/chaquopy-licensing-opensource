@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Camera2"
+    android:background="#CCFFFF">
+
+    <ImageView
+        android:id="@+id/topviewv1"
+        android:layout_width="400dp"
+        android:layout_height="10dp" />
+
+
+    <ImageView
+        android:id="@+id/image_viewv1"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:src="@drawable/actual"
+        android:layout_below="@+id/topviewv1"/>
+
+    <ImageView
+        android:id="@+id/image_view1v1"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_below="@+id/topviewv1"/>
+
+    <TextView
+        android:id="@+id/scoretxtv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score: "
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="20dp"
+        android:layout_below="@+id/image_viewv1"/>
+
+    <TextView
+        android:id="@+id/text_viewv1"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_viewv1"
+        android:layout_marginLeft="90dp"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/analyze_buttonv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Analyze"
+        android:textSize="20sp"
+        android:layout_below="@+id/text_viewv1" />
+
+    <Button
+        android:id="@+id/save_buttonv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:textSize="20sp"
+        android:layout_below="@+id/analyze_buttonv1" />
+
+
+
+
+
+</RelativeLayout>

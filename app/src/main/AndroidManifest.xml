@@ -9,6 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+        <activity android:name=".Camera2"
+            android:label="Camera"
+            android:parentActivityName=".UpdateActivity" ></activity>
+        <activity android:name=".UpdateActivity"
+            android:label="Update Student"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AddActivity"
             android:label="Add Student"
@@ -16,7 +22,7 @@
         <activity
             android:name=".Camera"
             android:label="Camera"
-            android:parentActivityName=".AddActivity" />
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".AnswerKey" />
         <activity
             android:name=".MainActivity"

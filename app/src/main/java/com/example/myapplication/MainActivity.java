@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,10 +29,13 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public int[] intanswer = new int[] {2,2,1,1,0,0,3,3,1,3};
-    public int[] intanswer_1 = new int[] {2,1,2,1,2,1,2,1,2,1};
-    public int[] intanswer_2 = new int[] {0,0,0,0,0,1,1,1,1,1};
-    public int[] intanswer_3 = new int[] {3,2,1,0,1,2,3,2,1,2};
+    private long backPressedTime;
+    private Toast backToast;
+
+    public int[] intanswer = new int[]{2, 2, 1, 1, 0, 0, 3, 3, 1, 3};
+    public int[] intanswer_1 = new int[]{2, 1, 2, 1, 2, 1, 2, 1, 2, 1};
+    public int[] intanswer_2 = new int[]{0, 0, 0, 0, 0, 1, 1, 1, 1, 1};
+    public int[] intanswer_3 = new int[]{3, 2, 1, 0, 1, 2, 3, 2, 1, 2};
 
     FloatingActionButton add_button;
     RecyclerView recyclerView;
@@ -39,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
     MyDatabaseHelper myDB;
     ArrayList<String> student_id, student_fullname, student_idnumber, student_mobilenumber, student_score;
     CustomAdapter customAdapter;
-
-
 
 
     @Override
@@ -71,17 +73,26 @@ public class MainActivity extends AppCompatActivity {
         student_score = new ArrayList<>();
         storeDataInArrays();
 
-        customAdapter = new CustomAdapter(MainActivity.this, student_id,student_fullname,student_idnumber,student_mobilenumber,student_score);
+        customAdapter = new CustomAdapter(MainActivity.this, this, student_id, student_fullname, student_idnumber, student_mobilenumber, student_score);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
     }
 
-    void storeDataInArrays(){
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            recreate();
+        }
+    }
+
+
+    void storeDataInArrays() {
         Cursor cursor = myDB.readAllData();
-        if(cursor.getCount() == 0){
-            Toast.makeText(this,"No Data.", Toast.LENGTH_SHORT).show();
-        }else{
-            while (cursor.moveToNext()){
+        if (cursor.getCount() == 0) {
+            Toast.makeText(this, "No Data.", Toast.LENGTH_SHORT).show();
+        } else {
+            while (cursor.moveToNext()) {
                 student_id.add(cursor.getString(0));
                 student_fullname.add(cursor.getString(1));
                 student_idnumber.add(cursor.getString(2));
@@ -92,5 +103,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            backToast.cancel();
+            super.onBackPressed();
+            return;
+        } else {
+            backToast = Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
 
+
+    }
 }

@@ -19,9 +19,9 @@ import com.chaquo.python.android.AndroidPlatform;
 
 import java.io.ByteArrayOutputStream;
 
-public class Camera extends AppCompatActivity {
-
+public class Camera2 extends AppCompatActivity {
     public String score;
+    String id;
 
 
     Button btn,btn_save;
@@ -35,15 +35,14 @@ public class Camera extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera);
+        setContentView(R.layout.activity_camera2);
 
 
-
-        btn = (Button)findViewById(R.id.analyze_button);
-        tv = (TextView)findViewById(R.id.text_view);
-        iv = (ImageView)findViewById(R.id.image_view);
-        iv1 = (ImageView)findViewById(R.id.image_view1);
-        btn_save = (Button) findViewById(R.id.save_button);
+        btn = (Button)findViewById(R.id.analyze_buttonv1);
+        tv = (TextView)findViewById(R.id.text_viewv1);
+        iv = (ImageView)findViewById(R.id.image_viewv1);
+        iv1 = (ImageView)findViewById(R.id.image_view1v1);
+        btn_save = (Button) findViewById(R.id.save_buttonv1);
 
 
 
@@ -54,16 +53,17 @@ public class Camera extends AppCompatActivity {
         PyObject pyobj = py.getModule("script");
 
 
-        int[] intanswer = getIntent().getIntArrayExtra("int");
-        int[] intanswer_1 = getIntent().getIntArrayExtra("int_1");
-        int[] intanswer_2 = getIntent().getIntArrayExtra("int_2");
-        int[] intanswer_3 = getIntent().getIntArrayExtra("int_3");
+        int[] intanswer = getIntent().getIntArrayExtra("intv1");
+        int[] intanswer_1 = getIntent().getIntArrayExtra("int_1v1");
+        int[] intanswer_2 = getIntent().getIntArrayExtra("int_2v1");
+        int[] intanswer_3 = getIntent().getIntArrayExtra("int_3v1");
 
 
 
-        String fullname = getIntent().getStringExtra("fullname");
-        String mobilenumber = getIntent().getStringExtra("mobilenumber");
-        String idnumber = getIntent().getStringExtra("idnumber");
+        String fullname = getIntent().getStringExtra("fullnamev1");
+        String mobilenumber = getIntent().getStringExtra("mobilenumberv1");
+        String idv1 = getIntent().getStringExtra("idv1");
+        String idnumber = getIntent().getStringExtra("idnumberv1");
 
 
 
@@ -96,10 +96,9 @@ public class Camera extends AppCompatActivity {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyDatabaseHelper myDB = new MyDatabaseHelper(Camera.this);
-                myDB.addstudent(fullname, mobilenumber, score, idnumber);
-                Intent intent = new Intent(Camera.this, AddActivity.class);
-                intent.putExtra("flag", 1);
+                MyDatabaseHelper myDB = new MyDatabaseHelper(Camera2.this);
+                myDB.updateData(idv1,fullname, idnumber, mobilenumber,score);
+                Intent intent = new Intent(Camera2.this, MainActivity.class);
                 startActivity(intent);
 
 
@@ -107,8 +106,8 @@ public class Camera extends AppCompatActivity {
 
         });
 
-
     }
+
     private String getImageString(Bitmap bitmap){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100,baos);

@@ -43,19 +43,19 @@
                 app:layout_constraintTop_toTopOf="@+id/student_id_txt" />
 
             <TextView
-                android:id="@+id/student_idnumber_txt"
+                android:id="@+id/student_mobilenumber_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Id Number"
+                android:text="Mobile Number"
                 app:layout_constraintStart_toStartOf="@+id/student_fullname_txt"
                 app:layout_constraintTop_toBottomOf="@+id/student_fullname_txt" />
 
             <TextView
-                android:id="@+id/student_mobilenumber_txt"
+                android:id="@+id/student_idnumber_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="150dp"
-                android:text="Mobile Number"
+                android:text="Id Number"
                 app:layout_constraintStart_toEndOf="@+id/student_id_txt"
                 app:layout_constraintTop_toBottomOf="@+id/student_fullname_txt" />
 
