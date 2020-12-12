@@ -1,7 +1,10 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,7 +25,7 @@ public class UpdateActivity extends AppCompatActivity {
 
 
     EditText fullname_input, mobilenumber_input, idnumber_input, score;
-    Button camera_button;
+    Button camera_button, delete_button;
 
     String id, fullname, mobilenumber, idnumber;
 
@@ -36,9 +39,15 @@ public class UpdateActivity extends AppCompatActivity {
         mobilenumber_input = findViewById(R.id.mobilenumber_input2);
         idnumber_input = findViewById(R.id.idnumber_input2);
         camera_button = findViewById(R.id.camera_button2);
+        delete_button = findViewById(R.id.delete_button);
 
 
         getAndSetIntentData();
+
+        ActionBar ab = getSupportActionBar();
+        if (ab != null){
+            ab.setTitle(fullname);
+        }
         camera_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +77,13 @@ public class UpdateActivity extends AppCompatActivity {
             }
         });
 
+        delete_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmDialog();
+            }
+        });
+
     }
     void getAndSetIntentData(){
         if(getIntent().hasExtra("id") && getIntent().hasExtra("fullname") && getIntent().hasExtra("mobilenumber")  &&
@@ -86,5 +102,26 @@ public class UpdateActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "No data.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    void confirmDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete " + fullname + " ?");
+        builder.setMessage("Are you sure you want to delete " + fullname + " ?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateActivity.this);
+                myDB.deleteOneRow(id);
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.create().show();
     }
 }

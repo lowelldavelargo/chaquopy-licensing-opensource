@@ -131,6 +131,66 @@ public class AnswerKey extends AppCompatActivity {
                 if(tenB.isChecked()){
                     answer_key[9] = 1;
                 }
+                if(oneC.isChecked()){
+                    answer_key[0] = 2;
+                }
+                if(twoC.isChecked()){
+                    answer_key[1] = 2;
+                }
+                if(threeC.isChecked()){
+                    answer_key[2] = 2;
+                }
+                if(fourC.isChecked()){
+                    answer_key[3] = 2;
+                }
+                if(fiveC.isChecked()){
+                    answer_key[4] = 2;
+                }
+                if(sixC.isChecked()){
+                    answer_key[5] = 2;
+                }
+                if(sevenC.isChecked()){
+                    answer_key[6] = 2;
+                }
+                if(eightC.isChecked()){
+                    answer_key[7] = 2;
+                }
+                if(nineC.isChecked()){
+                    answer_key[8] = 2;
+                }
+                if(tenC.isChecked()){
+                    answer_key[9] = 2;
+                }
+                if(oneD.isChecked()){
+                    answer_key[0] = 3;
+                }
+                if(twoD.isChecked()){
+                    answer_key[1] = 3;
+                }
+                if(threeD.isChecked()){
+                    answer_key[2] = 3;
+                }
+                if(fourD.isChecked()){
+                    answer_key[3] = 3;
+                }
+                if(fiveD.isChecked()){
+                    answer_key[4] = 3;
+                }
+                if(sixD.isChecked()){
+                    answer_key[5] = 3;
+                }
+                if(sevenD.isChecked()){
+                    answer_key[6] = 3;
+                }
+                if(eightD.isChecked()){
+                    answer_key[7] = 3;
+                }
+                if(nineD.isChecked()){
+                    answer_key[8] = 3;
+                }
+                if(tenD.isChecked()){
+                    answer_key[9] = 3;
+                }
 
                 Intent intent = new Intent(AnswerKey.this,MainActivity.class);
                 intent.putExtra("int", answer_key);

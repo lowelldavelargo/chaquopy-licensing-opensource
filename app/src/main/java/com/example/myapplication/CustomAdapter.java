@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,7 +22,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     private Context context;
     private ArrayList student_id, student_fullname, student_idnumber, student_mobilenumber, student_score;
-    Activity activity;
+    private Activity activity;
+    Animation translate_anim;
 
     CustomAdapter(Activity activity, Context context, ArrayList student_id, ArrayList student_fullname, ArrayList student_idnumber,
                   ArrayList student_mobilenumber, ArrayList student_score){
@@ -84,6 +87,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             student_mobilenumber_txt = itemView.findViewById(R.id.student_mobilenumber_txt);
             student_score_txt = itemView.findViewById(R.id.student_score_txt);
             mainLayout = itemView.findViewById(R.id.mainLayout);
+            translate_anim = AnimationUtils.loadAnimation(context, R.anim.translate_anim);
+            mainLayout.setAnimation(translate_anim);
         }
     }
 }

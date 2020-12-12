@@ -11,9 +11,8 @@
         android:theme="@style/Theme.MyApplication">
         <activity android:name=".Camera2"
             android:label="Camera"
-            android:parentActivityName=".UpdateActivity" ></activity>
+            android:parentActivityName=".MainActivity" ></activity>
         <activity android:name=".UpdateActivity"
-            android:label="Update Student"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AddActivity"
