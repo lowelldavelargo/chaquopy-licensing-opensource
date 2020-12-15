@@ -37,10 +37,11 @@ public class MainActivity extends AppCompatActivity {
     private long backPressedTime;
     private Toast backToast;
 
-    public int[] intanswer = new int[]{2, 2, 1, 1, 0, 0, 3, 3, 1, 3};
-    public int[] intanswer_1 = new int[]{2, 1, 2, 1, 2, 1, 2, 1, 2, 1};
-    public int[] intanswer_2 = new int[]{0, 0, 0, 0, 0, 1, 1, 1, 1, 1};
-    public int[] intanswer_3 = new int[]{3, 2, 1, 0, 1, 2, 3, 2, 1, 2};
+    public int[] intanswer = new int[10];
+    public int[] intanswer_1 = new int[10];
+    public int[] intanswer_2 = new int[10];
+    public int[] intanswer_3 = new int[10];
+    public int counter, flaganswerkey_returntomainfinal;
 
     FloatingActionButton add_button;
     RecyclerView recyclerView;
@@ -63,14 +64,41 @@ public class MainActivity extends AppCompatActivity {
         empty_imageview = findViewById(R.id.empty_imageview);
         no_data = findViewById(R.id.no_data);
 
+
+
+
+
+   //  if(counter >= 1) {
+
+   //          int[] intreturntomain = getIntent().getIntArrayExtra("intreturntomain");
+   //          int[] int_1returntomain = getIntent().getIntArrayExtra("int_1returntomain");
+   //          int[] int_2returntomain = getIntent().getIntArrayExtra("int_2returntomain");
+   //          int[] int_3returntomain = getIntent().getIntArrayExtra("int_3returntomain");
+   //          int flaganswerkey_returntomain = getIntent().getExtras().getInt("flaganswerkey_returntomain");
+   //          intanswer = intreturntomain;
+   //          intanswer_1 = int_1returntomain;
+   //          intanswer_2 = int_2returntomain;
+   //          intanswer_3 = int_3returntomain;
+   //          flaganswerkey_returntomainfinal = flaganswerkey_returntomain;
+
+
+
+
+     //}
+
+
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                counter++;
+
                 Intent intent = new Intent(MainActivity.this, AddActivity.class);
-                intent.putExtra("int", intanswer);
-                intent.putExtra("int_1", intanswer_1);
-                intent.putExtra("int_2", intanswer_2);
-                intent.putExtra("int_3", intanswer_3);
+                intent.putExtra("intmain", intanswer);
+                intent.putExtra("int_1main", intanswer_1);
+                intent.putExtra("int_2main", intanswer_2);
+                intent.putExtra("int_3main", intanswer_3);
+                //if(flaganswerkey_returntomainfinal == 1){
+                //intent.putExtra("flagmain", 1);}
                 startActivity(intent);
             }
         });

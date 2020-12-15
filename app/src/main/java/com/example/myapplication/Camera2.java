@@ -99,6 +99,11 @@ public class Camera2 extends AppCompatActivity {
                 MyDatabaseHelper myDB = new MyDatabaseHelper(Camera2.this);
                 myDB.updateData(idv1,fullname, idnumber, mobilenumber,score);
                 Intent intent = new Intent(Camera2.this, MainActivity.class);
+                //intent.putExtra("intreturntomain", intanswer);
+                //intent.putExtra("int_1returntomain", intanswer_1);
+                //intent.putExtra("int_2returntomain", intanswer_2);
+                //intent.putExtra("int_3returntomain", intanswer_3);
+                //intent.putExtra("flaganswerkey_returntomain", 1);
                 startActivity(intent);
 
 

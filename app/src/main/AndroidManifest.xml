@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity android:name=".Camera2"
-            android:label="Camera"
-            android:parentActivityName=".MainActivity" ></activity>
+            android:label="Process"
+            ></activity>
         <activity android:name=".UpdateActivity"
             android:parentActivityName=".MainActivity" />
         <activity
@@ -20,9 +20,11 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Camera"
-            android:label="Camera"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".AnswerKey" />
+            android:label="Process"
+             />
+        <activity android:name=".AnswerKey"
+            android:label="AnswerKey"
+            />
         <activity
             android:name=".MainActivity"
             android:label="MCQ Checker">

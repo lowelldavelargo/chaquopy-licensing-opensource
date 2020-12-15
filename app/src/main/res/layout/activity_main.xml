@@ -20,6 +20,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_add" />
 
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/records_view"
             android:paddingTop="?attr/actionBarSize"
